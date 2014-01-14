@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LoLTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit_message">Enter Summoner Name</string>
+    <string name="button_find">Find</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_display_message">DisplayMessageActivity</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <!-- GET URLs -->
+    <string name="get_url">http://prod.api.pvp.net/api/lol/na/</string>
+    
+    <string name="get_url_champion">champion</string>
+    
+    <string name="get_url_game-v1.3_1">v1.3/game/by-summoner/</string>
+    <string name="get_url_game-v1.3_2">/recent</string>
+    <string name="get_url_league-v2.2">v2.2/league/by-summoner/</string>
+    
+    <string name="get_url_stats-v1.2-summary_1">/v1.2/stats/by-summoner/</string>
+    <string name="get_url_stats-v1.2-summary_2">/summary</string>
+    <string name="get_url_stats-v1.2-ranked_1">/v1.2/stats/by-summoner/</string>
+    <string name="get_url_stats-v1.2-ranked_2">/ranked</string>
+    
+    <string name="get_url_summoner-v1.2-masteries_1">/v1.2/summoner/</string>
+    <string name="get_url_summoner-v1.2-masteries_2">/masteries</string>
+    <string name="get_url_summoner-v1.2-runes_1">/v1.2/summoner/</string>
+    <string name="get_url_summoner-v1.2-runes_2">/runes</string>
+    <string name="get_url_summoner-v1.2-by-name">/v1.2/summoner/by-name/</string>
+    <string name="get_url_summoner-v1.2-summonerId">/v1.2/summoner/</string>
+    <string name="get_url_summoner-v1.2-summonersId_1">/v1.2/summoner/</string>
+    <string name="get_url_summoner-v1.2-summonersId_2">/name</string>
+    
+    <string name="get_url_team-v2.2">/v2.2/team/by-summoner/</string>
+    
+    <!-- Riot API Key -->
+    <string name="api_key">be197d0e-d400-420b-848d-01f264e118cd</string>
+
+</resources>
