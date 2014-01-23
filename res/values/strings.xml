@@ -10,31 +10,32 @@
     <string name="hello_world">Hello world!</string>
     
     <!-- GET URLs -->
-    <string name="get_url">http://prod.api.pvp.net/api/lol/na/</string>
+    <string name="get_url">http://prod.api.pvp.net/api/lol/na</string>
     
-    <string name="get_url_champion">champion</string>
+    <string name="get_url_champion">/v1.1/champion</string>
     
-    <string name="get_url_game-v1.3_1">v1.3/game/by-summoner/</string>
-    <string name="get_url_game-v1.3_2">/recent</string>
-    <string name="get_url_league-v2.2">v2.2/league/by-summoner/</string>
+    <string name="get_url_game_v1.3_1">/v1.3/game/by-summoner/</string>
+    <string name="get_url_game_v1.3_2">/recent</string>
+    <string name="get_url_league_v2.2">/v2.2/league/by-summoner/</string>
     
-    <string name="get_url_stats-v1.2-summary_1">/v1.2/stats/by-summoner/</string>
-    <string name="get_url_stats-v1.2-summary_2">/summary</string>
-    <string name="get_url_stats-v1.2-ranked_1">/v1.2/stats/by-summoner/</string>
-    <string name="get_url_stats-v1.2-ranked_2">/ranked</string>
+    <string name="get_url_stats_v1.2_summary_1">/v1.2/stats/by-summoner/</string>
+    <string name="get_url_stats_v1.2_summary_2">/summary</string>
+    <string name="get_url_stats_v1.2_ranked_1">/v1.2/stats/by-summoner/</string>
+    <string name="get_url_stats_v1.2_ranked_2">/ranked</string>
     
-    <string name="get_url_summoner-v1.2-masteries_1">/v1.2/summoner/</string>
-    <string name="get_url_summoner-v1.2-masteries_2">/masteries</string>
-    <string name="get_url_summoner-v1.2-runes_1">/v1.2/summoner/</string>
-    <string name="get_url_summoner-v1.2-runes_2">/runes</string>
-    <string name="get_url_summoner-v1.2-by-name">/v1.2/summoner/by-name/</string>
-    <string name="get_url_summoner-v1.2-summonerId">/v1.2/summoner/</string>
-    <string name="get_url_summoner-v1.2-summonersId_1">/v1.2/summoner/</string>
-    <string name="get_url_summoner-v1.2-summonersId_2">/name</string>
+    <string name="get_url_summoner_v1.2_masteries_1">/v1.2/summoner/</string>
+    <string name="get_url_summoner_v1.2_masteries_2">/masteries</string>
+    <string name="get_url_summoner_v1.2_runes_1">/v1.2/summoner/</string>
+    <string name="get_url_summoner_v1.2_runes_2">/runes</string>
+    <string name="get_url_summoner_v1.2_by_name">/v1.2/summoner/by-name/</string>
+    <string name="get_url_summoner_v1.3_summonerId">/v1.3/summoner/</string>
+    <string name="get_url_summoner_v1.2_summonersId_1">/v1.2/summoner/</string>
+    <string name="get_url_summoner_v1.2_summonersId_2">/name</string>
     
-    <string name="get_url_team-v2.2">/v2.2/team/by-summoner/</string>
+    <string name="get_url_team_v2.2">/v2.2/team/by-summoner/</string>
     
     <!-- Riot API Key -->
-    <string name="api_key">be197d0e-d400-420b-848d-01f264e118cd</string>
+    <string name="api_key">"?api_key=be197d0e-d400-420b-848d-01f264e118cd"</string>
+    
 
 </resources>

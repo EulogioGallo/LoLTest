@@ -1,5 +1,7 @@
 package com.example.loltest;
 
+import org.json.JSONObject;
+
 public class MapNames implements RIOT_CLASS{
 	private final String tableName = "map_names";
 	private int mapId;
@@ -8,16 +10,21 @@ public class MapNames implements RIOT_CLASS{
 	
 	public MapNames(){}
 	
-	public MapNames(int id, String name, String notes) {
+	public MapNames(JSONObject map) {
 		super();
-		this.mapId = id;
-		this.name = name;
-		this.notes = notes;
+		
+		try {
+			this.mapId = map.getInt("mapId");
+			this.name = map.getString("name");
+			this.notes = map.getString("notes");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return "{\"map_names\": {\"mapId\"=\""+mapId+"\", \"name\"=\""+name+"\", \"notes\"=\""+notes+"\"}}";
+		return "{\"map_names\": {\"mapId\":\""+mapId+"\", \"name\":\""+name+"\", \"notes\":\""+notes+"\"}}";
 	}
 	
 	public String[] members() {

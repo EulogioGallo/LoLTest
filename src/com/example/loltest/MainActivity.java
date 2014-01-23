@@ -2,6 +2,8 @@ package com.example.loltest;
 
 
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +22,11 @@ public class MainActivity extends Activity {
 		
 		//test db code
 		RiotDB db = new RiotDB(this);
-		MapNames mapNames = new MapNames(1, "Summoner's Rift", "Summer Variant");
-		db.addRow(mapNames);
+		//db.loadChamps();
+		//MapNames mapNames = new MapNames(1, "Summoner's Rift", "Summer Variant");
+		//db.addRow(mapNames);
 		
-		Log.d("Hmm...", db.getRow(mapNames.tableName(),mapNames.members()));
+		//Log.d("Hmm...", db.getRow(mapNames.tableName(),mapNames.members()));
 	}
 
 	@Override
@@ -36,20 +39,32 @@ public class MainActivity extends Activity {
 	public void findSummoner(View view) {
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
 		EditText editText = (EditText) findViewById(R.id.summoner_name);
-		String message = editText.getText().toString();
+		String summonerName = editText.getText().toString();
 		
-		//call asynctask
+		//form get url for summoner
+		String summonerUrl = this.getString(R.string.get_url) + this.getString(R.string.get_url_summoner_v1_2_by_name)
+				+ summonerName + this.getString(R.string.api_key);
+		
+		//call asynctask to get summoner id by name
 		AsyncTaskSummoner ats = new AsyncTaskSummoner();
 		String result = "";
 		try {
-			result = ats.execute(message).get();
+			result = ats.execute(summonerUrl).get();
+			JSONObject jResult = new JSONObject(result);
+			Summoner summoner = new Summoner(this, jResult);
+			Log.d("Summoner Created", summoner.summonerName());
+			summoner.getRecentlyPlayed();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		Log.d("RESULT RETURNED", result);
 		
+		
+		
+		
 		intent.putExtra(EXTRA_MESSAGE, result);
 		startActivity(intent);
 	}
+	
 
 }

@@ -2,6 +2,7 @@ package com.example.loltest;
 
 import java.util.Iterator;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
@@ -13,10 +14,12 @@ import android.util.Log;
 
 public class RiotDB extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_NAME = "RiotDB";
+	private static final String DATABASE_NAME = "RiotDB.db";
+	private Context context;
 	
 	public RiotDB(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 	
 	@Override
@@ -26,9 +29,16 @@ public class RiotDB extends SQLiteOpenHelper {
 				"mapId INTEGER PRIMARY KEY, " +
 				"name TEXT, " +
 				"notes TEXT)";
-		
+		String CREATE_TABLE_CHAMPIONS = "CREATE TABLE champions ( " +
+				"id INTEGER PRIMARY KEY, " +
+				"name TEXT, " +
+				"defenseRank INTEGER, " +
+				"attackRank INTEGER, " +
+				"difficultyRank INTEGER, " +
+				"magicRank INTEGER)";
 		
 		db.execSQL(CREATE_TABLE_MAP_NAMES);
+		db.execSQL(CREATE_TABLE_CHAMPIONS);
 	}
 	
 	@Override
@@ -74,7 +84,6 @@ public class RiotDB extends SQLiteOpenHelper {
 	}
 	
 	public String getRow(String tableName, String[] tableColumns) {
-		//row is a JSON formatted string
 		try {
 			//get sqlite db reference
 			SQLiteDatabase db = this.getReadableDatabase();
@@ -93,15 +102,44 @@ public class RiotDB extends SQLiteOpenHelper {
 			if (cursor != null)
 				cursor.moveToFirst();
 			
-			//build class
-			MapNames mapNames = new MapNames(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2));
-			
-			
-			return mapNames.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "error";
+		return "row added";
+	}
+	
+	/* Functions for loading League of Legends constants */
+	
+	//Loads current champions
+	public void loadChamps() {
+		//Create async request
+		String url = context.getString(R.string.get_url) + context.getString(R.string.get_url_champion)
+				+ "?api_key=" + context.getString(R.string.api_key);
+		
+		//call asynctask
+		AsyncTaskSummoner ats = new AsyncTaskSummoner();
+		String result = "";
+		try {
+			result = ats.execute(url).get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//go through returned champs and add them to db
+		try {
+			JSONObject jResult = new JSONObject(result);
+			
+			JSONArray champs = jResult.getJSONArray("champions");
+			for(int i = 0; i < champs.length(); i++) {
+				String champString = champs.getJSONObject(i).toString();
+				Log.d("JSON Iterate", champString);
+				addRow(new Champion(champs.getJSONObject(i)));
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

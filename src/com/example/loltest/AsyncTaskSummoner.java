@@ -20,6 +20,7 @@ public class AsyncTaskSummoner extends AsyncTask<String, String, String> {
 		try {
 			HttpClient client = new DefaultHttpClient();
 			String url = params[0];
+			Log.d("GET URL", url);
 			HttpGet get = new HttpGet(url);
 			HttpResponse response = client.execute(get);
 			HttpEntity resEntity = response.getEntity();
