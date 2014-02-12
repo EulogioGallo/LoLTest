@@ -1,6 +1,7 @@
 package com.example.loltest;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,7 +21,7 @@ public class Summoner {
 	private int profileIconId;
 	private int revisionDate;
 	private int summonerLevel;
-	private ArrayList<Summoner> recentlyPlayed;
+	private ArrayList<Summoner> recentlyPlayed = new ArrayList<Summoner>();
 	
 	public Summoner() {}
 	
@@ -60,6 +61,8 @@ public class Summoner {
 			this.revisionDate = summoner.getInt("revisionDate");
 			this.summonerLevel = summoner.getInt("summonerLevel");
 			
+			Log.d("Summoner Added", name);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -77,6 +80,7 @@ public class Summoner {
 		String recentGamesUrl = context.getString(R.string.get_url) + context.getString(R.string.get_url_game_v1_3_1) + id
 				+ context.getString(R.string.get_url_game_v1_3_2) + context.getString(R.string.api_key);
 		String result = "";
+		ArrayList<String> recentSummoners = new ArrayList<String>();
 		
 		try {
 			result = ats.execute(recentGamesUrl).get();
@@ -86,11 +90,40 @@ public class Summoner {
 				JSONArray curr = jResult.getJSONObject(i).getJSONArray("fellowPlayers");
 				
 				for(int j = 0; j < curr.length(); j++) {
+					/*
 					Summoner currSummoner = new Summoner(context, curr.getJSONObject(j).getInt("summonerId"));
 					recentlyPlayed.add(currSummoner);
 					Log.d("Recently Played", currSummoner.summonerName());
-				}
+					*/
+					//create list to store recent summoner ids and get info on them in one API call
+					recentSummoners.add(String.valueOf(curr.getJSONObject(j).getInt("summonerId")).toString());
+				} //end for j
+			} //end for i
+			
+			//call API with summoner id list
+			AsyncTaskSummoner ats2 = new AsyncTaskSummoner();
+			String allSummoners = "";
+			
+			//capped at 40 per request
+			for(int i = 0; i < 40 && i < recentSummoners.size(); i++) {
+				allSummoners += recentSummoners.get(i) + ",";
 			}
+			
+			String recentSummonersUrl = context.getString(R.string.get_url) + context.getString(R.string.get_url_summoner_v1_3_summonerId)
+					+ allSummoners + context.getString(R.string.api_key);
+			
+			result = ats2.execute(recentSummonersUrl).get();
+			
+			//add summoners to recently played list
+			JSONObject jRecent = new JSONObject(result);
+			Iterator<?> jRecentSummoners = jRecent.keys();
+			while(jRecentSummoners.hasNext()) {
+				String currId = jRecentSummoners.toString();
+				Log.d("json summoner", jRecent.getJSONObject(currId).toString());
+				this.recentlyPlayed.add(new Summoner(this.context, jRecent.getJSONObject(currId)));
+				jRecentSummoners.next();
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
